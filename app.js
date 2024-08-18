@@ -236,9 +236,156 @@ function ordenarNumeros(a = []){
 let numerosArr = [1,6,2,8,9,3,4,0,1,2,7,80,20,54,21];
 console.log(ordenarNumeros(numerosArr));
 
+// EJERCICIO 25
 function eliminarEstudiante(a = [], b){
     return a.filter(Estudiante => Estudiante.nombre != b);
 }
 
 console.log(arregloEstudiantes); // ANTES DE ELIMINAR
 console.log(eliminarEstudiante(arregloEstudiantes, "Mariano")); // DESPUES DE ELIMINAR
+
+// EJERCICIO 26
+function totalCarrito(a = []){
+    let total = 0;
+    a.forEach(element => {
+        if(element instanceof Producto){
+            total += element.precio;
+        }
+    });
+    return total;
+}
+
+let prod1 = new Producto("Manzana", 200, 15);
+let prod2 = new Producto("Naranja", 400, 25);
+let prod3 = new Producto("Pera", 30, 5);
+let prod4 = new Producto("Uva", 20, 60);
+let prod5 = new Producto("Sandia", 100, 21);
+
+let carritox = [prod1, prod2, prod3, prod4, prod5];
+console.log(totalCarrito(carritox));
+
+// EJERCICIO 27
+function crearCalculadora(a,b){
+    const calculadora = {
+        num1 : a,
+        num2 : b,
+        sumar(){
+            return a + b;
+        },
+
+        restar(){
+            return a - b;
+        },
+
+        multiplicar(){
+            return a * b;
+        },
+        dividir(){
+            return a / b;
+        }
+    }
+    return calculadora;
+}
+
+let calculadora = crearCalculadora(2, 5);
+console.log(calculadora.sumar());
+
+// EJERCICIO 28
+function crearBancaria(nombre, total){
+    const bancaria = {
+        nombre : nombre,
+        total : total,
+
+        depositar(a){
+            total += a;
+        },
+
+        retirar(a){
+            total -= a
+        },
+
+        saldo(){
+            return total;
+        }
+    }
+    return bancaria;
+}
+
+let cuentaBancaria = crearBancaria("Luciano", 20);
+cuentaBancaria.depositar(200);
+cuentaBancaria.retirar(50);
+console.log(cuentaBancaria.saldo());
+
+// EJERCICIO 29
+function Libro(titulo, autor, paginas){
+    this.titulo = titulo;
+    this.autor = autor;
+    this.paginas = paginas;
+
+    this.detalles = function(){
+        console.log(`Titulo: ${titulo}, Autor: ${autor}, Paginas ${paginas}`);
+    }
+}
+
+let libro1 = new Libro("Harry Potter", "Deique Robuin", 200);
+libro1.detalles();
+
+// EJERCICIO 30
+function Tarea(nombre, fecha){
+    this.nombre = nombre;
+    this.fecha = fecha;
+    this.completada = false;
+    this.pendiente = true;
+
+    this.detalles = function(){
+        console.log(`Nombre: ${this.nombre} Fecha: ${this.fecha} Completada: ${this.completada} Pendiente: ${this.pendiente}`);
+    }
+
+    this.completar = function(){
+        this.completada = true;
+        this.pendiente = false;
+    }
+    this.marcarPendiente = function(){
+        this.pendiente = true;
+        this.completada = false;
+    }
+}
+
+function gestionTareas(){
+    this.tareas = [];
+
+    this.agregar = function (a){
+        this.tareas.push(a);
+    }
+
+    this.eliminar = function (eliminar){
+        this.tareas = this.tareas.filter(b => b.nombre != eliminar);
+    }
+
+    this.mostrarTareas = function (){
+        this.tareas.forEach(element => {
+            if(element instanceof Tarea){
+                element.detalles();
+            }
+        });
+    }
+}
+
+let tarea1 = new Tarea("Ordenar", "17/08");
+let tarea2 = new Tarea("Limpiar", "21/09");
+let tarea3 = new Tarea("Masajear", "15/08");
+let tarea4 = new Tarea("Barrer", "7/08");
+
+let gestor = new gestionTareas();
+gestor.agregar(tarea1);
+gestor.agregar(tarea2);
+gestor.agregar(tarea3);
+gestor.agregar(tarea4);
+
+gestor.mostrarTareas();
+gestor.eliminar("Limpiar");
+tarea1.completar();
+tarea1.marcarPendiente();
+console.log("ASSSHEEEE");
+gestor.mostrarTareas();
+
